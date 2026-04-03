@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
+
 class PostController extends Controller
 {
     /**
@@ -16,8 +16,6 @@ class PostController extends Controller
         //
     }
 
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -25,7 +23,12 @@ class PostController extends Controller
     {
         $request->validated();
 
-        Post::create($request->only(['title', 'category', 'content', 'status']));
+        Post::create([
+            'title' => $request->title,
+            'content' => clean($request->content),
+            'category' => $request->category,
+            'status' => 'published',
+        ]);
 
         return back()->with('success', 'Post created successfully!');
     }
@@ -67,10 +70,10 @@ class PostController extends Controller
         $request->validated();
 
         Post::create([
-            'title'   => $request->title,
+            'title' => $request->title,
             'content' => clean($request->content),
             'category' => $request->category,
-            'status'  => 'draft',
+            'status' => 'draft',
         ]);
 
         return back()->with('success', 'Post saved as draft successfully!');
