@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -16,19 +18,21 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
-        //
+        $credentials = $request->validated();
+
+        if (! Auth::attempt($credentials)) {
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Invalid credentials. Please try again.']);
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->route('Dashboard')->with('success', 'You have successfully logged in!');
+
     }
 
     /**
