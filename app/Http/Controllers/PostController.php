@@ -16,13 +16,7 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -31,7 +25,7 @@ class PostController extends Controller
     {
         $request->validated();
 
-        Post::create($request->only(['title', 'category', 'content']));
+        Post::create($request->only(['title', 'category', 'content', 'status']));
 
         return back()->with('success', 'Post created successfully!');
     }
@@ -66,5 +60,19 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function storeDraft(PostRequest $request)
+    {
+        $request->validated();
+
+        Post::create([
+            'title'   => $request->title,
+            'content' => clean($request->content),
+            'category' => $request->category,
+            'status'  => 'draft',
+        ]);
+
+        return back()->with('success', 'Post saved as draft successfully!');
     }
 }
