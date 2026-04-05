@@ -26,6 +26,4 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/posts', [PostController::class, 'store'])
         ->name('posts.store');
-    Route::post('/posts/draft', [PostController::class, 'storeDraft'])
-        ->name('posts.storeDraft');
 });

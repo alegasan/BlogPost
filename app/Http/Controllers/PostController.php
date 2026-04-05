@@ -21,16 +21,20 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $request->validated();
+        $validated = $request->validated();
 
         Post::create([
-            'title' => $request->title,
-            'content' => clean($request->content),
-            'category' => $request->category,
-            'status' => 'published',
+            'title'    => $validated['title'],
+            'content'  => clean($validated['content']),
+            'category' => $validated['category'],
+            'status'   => $validated['status'],
         ]);
 
-        return back()->with('success', 'Post created successfully!');
+        $message = $validated['status'] === 'published'
+            ? 'Post published successfully!'
+            : 'Post saved as draft!';
+
+        return back()->with('success', $message);
     }
 
     /**
@@ -63,19 +67,5 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
-    }
-
-    public function storeDraft(PostRequest $request)
-    {
-        $request->validated();
-
-        Post::create([
-            'title' => $request->title,
-            'content' => clean($request->content),
-            'category' => $request->category,
-            'status' => 'draft',
-        ]);
-
-        return back()->with('success', 'Post saved as draft successfully!');
     }
 }
