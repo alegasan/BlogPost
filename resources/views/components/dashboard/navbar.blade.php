@@ -32,11 +32,12 @@
                 Settings
             </a>
             <div class="ml-auto flex items-center gap-2">
-                <span class="hidden text-xs uppercase tracking-[0.18em] text-[#5f6f68] sm:inline">Status</span>
-                <span class="inline-flex items-center gap-2 rounded-full border border-[#d7d1c6] bg-white px-3 py-1 text-xs text-[#5f6f68]">
-                    <span class="h-2 w-2 rounded-full bg-[#1D9E75]"></span>
-                    Active
-                </span>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-ui.button type="submit" variant="text" size="sm" class="text-[#5f6f68] hover:text-[#1f2b26] cursor-pointer">
+                    Logout
+                </x-ui.button>
+                </form>
             </div>
         </div>
     </nav>

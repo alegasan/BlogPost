@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Stevebauman\Purify\Facades\Purify;
 
 class PostController extends Controller
 {
@@ -21,14 +23,16 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $validated = $request->validated();
 
+        $validated = $request->validated();
         Post::create([
-            'title'    => $validated['title'],
-            'content'  => clean($validated['content']),
+            'title' => $validated['title'],
+            'content' => Purify::clean($validated['content']),
             'category' => $validated['category'],
-            'status'   => $validated['status'],
+            'status' => $validated['status'],
         ]);
+
+        Cache::forget('posts.stats');
 
         $message = $validated['status'] === 'published'
             ? 'Post published successfully!'

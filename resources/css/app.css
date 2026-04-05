@@ -11,3 +11,7 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
     --font-serif: 'DM Serif Display', ui-serif, Georgia, serif;
 }
+
+trix-toolbar [data-trix-action="attachFiles"] {
+    display: none !important;
+}

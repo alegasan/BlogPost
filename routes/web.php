@@ -23,6 +23,7 @@ Route::post('/register', [RegisterController::class, 'store'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('Dashboard');
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
     Route::post('/posts', [PostController::class, 'store'])
         ->name('posts.store');

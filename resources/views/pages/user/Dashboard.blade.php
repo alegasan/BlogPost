@@ -5,11 +5,74 @@
 		</div>
 
 		<main class="space-y-8">
+
+			<section class="rounded-3xl border border-[#d7d1c6] bg-[#fffdf7] p-6">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<div>
+						<h2 class="text-2xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">Create a new post</h2>
+						<p class="mt-1 text-sm text-[#5f6f68]">Draft quickly, publish when it is ready.</p>
+						<p class="mt-2 text-sm text-[#5f6f68]">{{ $stats['recent'] }} posts published within the last 48 hours.</p>					<span class="rounded-full border border-[#d7d1c6] bg-white px-3 py-1 text-xs text-[#5f6f68]">Drafts: {{ $stats['draft'] }}</span>
+				</div>
+
+				<form class="mt-6 grid gap-4"
+				method="POST"
+				action="{{ route('posts.store') }}"
+				>
+					@csrf
+					@method('POST')
+					<div class="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
+						<label class="space-y-2">
+							<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Title</span>
+							<x-ui.input
+								type="text"
+								name="title"
+								placeholder="Enter post title..."
+								required
+								class="w-full rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20"
+							/>
+						</label>
+						<label class="space-y-2">
+							<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Category</span>
+							<x-ui.input
+								type="text"
+								name="category"
+								placeholder="e.g. Laravel, Tailwind, etc."
+								required
+								class="w-full rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20"	
+							/>
+						</label>
+					</div>
+					<label class="space-y-2">
+						<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Content</span>
+						<input
+							id="content"
+							type="hidden"
+							name="content"
+						/>
+						<trix-editor
+							input="content"
+							class="min-h-[200px] rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20"
+						></trix-editor>
+					</label>
+					<div class="flex flex-wrap items-center justify-end gap-2">
+						<input type="hidden" name="status" id="status" value="published">
+						<x-ui.button variant="secondary" size="sm" type="submit" onclick="document.getElementById('status').value='draft'">
+							Save Draft
+						</x-ui.button>
+						<x-ui.button size="sm" type="submit" onclick="document.getElementById('status').value='published'">
+							Publish Post
+						</x-ui.button>
+
+
+					</div>
+				</form>
+			</section>
+
 			<section class="rounded-3xl border border-[#d7d1c6] bg-[#fffdf7] p-6">
 				<div class="flex flex-wrap items-center justify-between gap-4">
 					<div>
 						<h1 class="text-3xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">Latest Articles</h1>
-						<p class="mt-2 text-sm text-[#5f6f68]">3 posts published with the last 48 hours.</p>
+						<p class="mt-2 text-sm text-[#5f6f68]"> {{ $stats['recent'] }} posts published with the last 48 hours.</p>
 					</div>
 					<div class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#5f6f68]">
 						<span class="h-2 w-2 rounded-full bg-[#1D9E75]"></span>
@@ -63,53 +126,6 @@
 						</div>
 					</article>
 				</div>
-			</section>
-
-			<section class="rounded-3xl border border-[#d7d1c6] bg-[#fffdf7] p-6">
-				<div class="flex flex-wrap items-center justify-between gap-3">
-					<div>
-						<h2 class="text-2xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">Create a new post</h2>
-						<p class="mt-1 text-sm text-[#5f6f68]">Draft quickly, publish when it is ready.</p>
-					</div>
-					<span class="rounded-full border border-[#d7d1c6] bg-white px-3 py-1 text-xs text-[#5f6f68]">Drafts: 2</span>
-				</div>
-
-				<form class="mt-6 grid gap-4">
-					<div class="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-						<label class="space-y-2">
-							<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Title</span>
-							<input
-								type="text"
-								placeholder="Enter post title..."
-								class="w-full rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20"
-							/>
-						</label>
-						<label class="space-y-2">
-							<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Category</span>
-							<select class="w-full rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20">
-								<option>Laravel</option>
-								<option>Design</option>
-								<option>Workflow</option>
-							</select>
-						</label>
-					</div>
-					<label class="space-y-2">
-						<span class="text-xs uppercase tracking-[0.18em] text-[#5f6f68]">Content</span>
-						<textarea
-							rows="4"
-							placeholder="Write your post content here..."
-							class="w-full rounded-2xl border border-[#d7d1c6] bg-white px-4 py-3 text-sm text-[#1f2b26] outline-none transition focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20"
-						></textarea>
-					</label>
-					<div class="flex flex-wrap items-center justify-end gap-2">
-						<x-ui.button variant="secondary" size="sm">
-							Save Draft
-						</x-ui.button>
-						<x-ui.button size="sm">
-							Publish Post
-						</x-ui.button>
-					</div>
-				</form>
 			</section>
 		</main>
 	</div>
