@@ -18,22 +18,6 @@ Use `search-docs` for detailed Tailwind CSS v4 patterns and documentation.
 - Offer to extract repeated patterns into components that match the project's conventions (e.g., Blade, JSX, Vue).
 - Consider class placement, order, priority, and defaults. Remove redundant classes, add classes to parent or child elements carefully to reduce repetition, and group elements logically.
 
-## Default UI Theme (Required)
-
-When generating UI (unless the user explicitly asks for a different style), apply this editorial/literary theme by default:
-
-- Headings: use DM Serif Display for a journalistic, authored tone.
-- Body text: use DM Sans for modern readability and contrast with headings.
-- Signature accent color: use teal `#1D9E75` for primary accents, actions, and highlights.
-- Layout direction: prefer an asymmetric featured layout pattern (large featured content on the left, smaller stacked items on the right) when building content-heavy sections.
-- Navigation: keep it minimal and uncluttered, using the site or author name as the logo.
-
-Implementation guidance:
-
-- Define reusable CSS variables/tokens for theme colors and typography where the project allows.
-- Preserve accessibility (sufficient contrast, clear focus states, semantic heading structure).
-- Respect existing design systems; if the codebase has a strict UI system, map these choices into that system instead of replacing it.
-
 ## Tailwind CSS v4 Specifics
 
 - Always use Tailwind CSS v4 and avoid deprecated utilities.

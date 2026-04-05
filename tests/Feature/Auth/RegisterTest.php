@@ -16,7 +16,8 @@ it('registers a new user', function () {
 
     $response = $this->post(route('register.store'), $payload);
 
-    $response->assertSuccessful();
+    $response->assertRedirect(route('login'));
+    $response->assertSessionHas('success');
 
     $user = User::where('email', $payload['email'])->first();
 
@@ -50,7 +51,8 @@ it('throttles registration attempts', function () {
                 'password' => 'password',
                 'password_confirmation' => 'password',
             ])
-            ->assertSuccessful();
+            ->assertRedirect(route('login'))
+            ->assertSessionHas('success');
     }
 
     $this

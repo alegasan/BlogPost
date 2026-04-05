@@ -23,16 +23,15 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-
         $validated = $request->validated();
-        Post::create([
+        auth()->user()->posts()->create([
             'title' => $validated['title'],
             'content' => Purify::clean($validated['content']),
             'category' => $validated['category'],
             'status' => $validated['status'],
         ]);
 
-        Cache::forget('posts.stats');
+        Cache::forget('posts.stats.'.auth()->id());
 
         $message = $validated['status'] === 'published'
             ? 'Post published successfully!'
