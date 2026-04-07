@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\MyPostController;
+use App\Http\Controllers\User\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,11 +23,23 @@ Route::post('/register', [RegisterController::class, 'store'])
     ->middleware('throttle:register');
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('Dashboard');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
+    // Posts
     Route::get('/posts', [PostController::class, 'index'])
         ->name('posts.index');
     Route::post('/posts', [PostController::class, 'store'])
         ->name('posts.store');
+    Route::get('/posts/{post}', [PostController::class, 'show'])
+        ->name('posts.show');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+        ->name('posts.destroy')
+        ->middleware('can:delete,post');
+
+    // My Posts
+    Route::get('/my-posts', [MyPostController::class, 'index'])
+        ->name('my-posts.index');
+
 });

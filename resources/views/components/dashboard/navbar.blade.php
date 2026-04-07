@@ -40,12 +40,12 @@
                All Posts
             </a>
             <a
-                href="{{ url('/posts/create') }}"
-                :class="currentPath === '/posts/create'
+                href="{{ url('/my-posts') }}"
+                :class="currentPath === '/my-posts'
                     ? 'rounded-full border border-transparent bg-[#1D9E75]/10 px-4 py-2 font-medium text-[#1D9E75]'
                     : 'rounded-full border border-transparent px-4 py-2 text-[#5f6f68] transition hover:text-[#1f2b26]'
                 "
-                @click="currentPath = '/posts/create'"
+                @click="currentPath = '/my-posts'"
             >
                My Posts
             </a>

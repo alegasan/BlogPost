@@ -11,6 +11,6 @@
 	</p>
 	<div class="mt-4 flex items-center justify-between text-xs text-[#5f6f68]">
 		<span>{{ $post->formatted_date }}</span>
-		<a href="#" class="font-medium text-[#1D9E75]">Read more</a>
+		<a href="{{ route('posts.show', $post) }}" class="font-medium text-[#1D9E75]">Read more</a>
 	</div>
 </article>

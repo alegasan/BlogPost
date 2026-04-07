@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
@@ -17,19 +18,10 @@ class PostController extends Controller
      */
     public function index(): View
     {
-        $allPosts = auth()
-            ->user()
-            ->posts()
-            ->status('published')
-            ->latest()
-            ->paginate(10);
+        $allPosts = Post::query()->where('status', 'published')->latest()->paginate(10);
 
         return view('pages.user.postPage.Index', compact('allPosts'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
 
     /**
      * Store a newly created resource in storage.
@@ -56,9 +48,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post): void
+    public function show(Post $post): View
     {
-        //
+        return view('pages.user.postPage.Show', compact('post'));
     }
 
     /**
@@ -80,8 +72,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post): void
+    public function destroy(Post $post): RedirectResponse
     {
-        //
+
+        Post::destroy($post->id);
+        Cache::forget('posts.stats.'.auth()->id());
+
+        return back()->with('success', 'Post deleted successfully!');
     }
 }
+    
