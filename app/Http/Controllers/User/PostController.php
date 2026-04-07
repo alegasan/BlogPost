@@ -75,8 +75,9 @@ class PostController extends Controller
     public function destroy(Post $post): RedirectResponse
     {
 
-        Post::destroy($post->id);
-        Cache::forget('posts.stats.'.auth()->id());
+        $ownerId = $post->user_id;
+        $post->delete();
+        Cache::forget('posts.stats.'.$ownerId);
 
         return back()->with('success', 'Post deleted successfully!');
     }

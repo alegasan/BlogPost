@@ -11,18 +11,20 @@
                 </span>
                 <span>{{ $post->formatted_date }}</span>
 
-                <form action="{{ route('posts.destroy', $post) }}" method="POST" class="ml-auto">
+                @can('delete', $post)
+                <form action="{{ route('posts.destroy', $post) }}" method="POST" class="ml-auto" onsubmit="return confirm('Are you sure you want to delete this post? This action cannot be undone.')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-red-500 hover:text-red-700 transition duration-300">
                         Delete
                     </button>
-                </form>
-            </div>
+                </form>    
+                @endcan        
+           
 
-            
+             </div>
 
-            <h1 class="text-3xl sm:text-4xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">
+             <h1 class="text-3xl sm:text-4xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">            <h1 class="text-3xl sm:text-4xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">
                 {{ $post->title }}
             </h1>
 
