@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
         <x-dashboard.navbar />
 
-        <section class="mt-8" x-data="{ search: '', results: [], loading: false, searched: false, controller: null, requestId: 0 }">
+        <section class="mt-8" x-data="searchPosts()">
             <h2 class="text-2xl sm:text-3xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">All Posts</h2>
 
             <div class="mt-6">
@@ -12,56 +12,7 @@
                         type="text"
                         x-model="search"
                         aria-label="Search posts"
-                        @input.debounce.500ms="
-                            if (search.length > 2) {
-                                const currentRequestId = ++requestId;
-
-                                if (controller) {
-                                    controller.abort();
-                                }
-
-                                controller = new AbortController();
-                                const currentSearch = search;
-
-                                loading = true;
-                                searched = true;
-
-                                fetch(`/my-posts/search?query=${encodeURIComponent(search)}`, { signal: controller.signal })
-                                    .then(res => {
-                                        if (!res.ok) {
-                                            throw new Error(`HTTP ${res.status}`);
-                                        }
-
-                                        return res.json();
-                                    })
-                                    .then(data => {
-                                        if (controller.signal.aborted || currentRequestId !== requestId || currentSearch !== search) {
-                                            return;
-                                        }
-
-                                        results = data.data;
-                                        loading = false;
-                                        searched = true;
-                                    })
-                                    .catch(() => {
-                                        if (controller.signal.aborted || currentRequestId !== requestId) {
-                                            return;
-                                        }
-
-                                        results = [];
-                                        loading = false;
-                                        searched = true;
-                                    });
-                            } else {
-                                if (controller) {
-                                    controller.abort();
-                                }
-
-                                results = [];
-                                loading = false;
-                                searched = false;
-                            }
-                        "
+                        @input.debounce.500ms="handleSearch"
                         placeholder="Search posts..."
                         class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50"
                     />                </div>

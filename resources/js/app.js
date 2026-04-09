@@ -4,8 +4,10 @@ import $ from 'jquery'
 window.$ = window.jQuery = $
 
 import Alpine from 'alpinejs'
+import searchPosts from './search'
 window.Alpine = Alpine
 
+Alpine.data('searchPosts', searchPosts)
 import toastr from 'toastr'
 import 'toastr/build/toastr.css'
 window.toastr = toastr
