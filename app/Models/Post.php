@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
 
 #[Fillable(['title', 'content', 'category', 'status'])]
 
@@ -38,5 +40,10 @@ class Post extends Model
     public function getFormattedDateAttribute(): string
     {
         return $this->created_at->format('M d, Y');
+    }
+
+    public function scopeOwnedBy(Builder $query, int $userId): Builder
+    {
+        return $query->where('user_id', $userId);
     }
 }

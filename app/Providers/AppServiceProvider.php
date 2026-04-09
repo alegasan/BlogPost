@@ -8,6 +8,7 @@ use App\View\Composers\PostStatsComposer;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Model::preventLazyLoading(! app()->isProduction());
+
         Gate::policy(Post::class, MyPostPolicy::class);
 
         View::composer([

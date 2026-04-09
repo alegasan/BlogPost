@@ -41,5 +41,7 @@ Route::middleware(['auth'])->group(function () {
     // My Posts
     Route::get('/my-posts', [MyPostController::class, 'index'])
         ->name('my-posts.index');
+    Route::get('/my-posts/search', [MyPostController::class, 'search'])
+        ->name('my-posts.search');
 
 });
