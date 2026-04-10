@@ -1,6 +1,9 @@
 <x-layouts.app title="Log in · {{ config('app.name', 'Blog Post') }}">
 	<x-ui.form title="Welcome back" description="Sign in to continue writing and managing your posts.">
-		<form class="space-y-4" method="POST" action="{{ route('login.store') }}">
+		<form class="space-y-4" method="POST" action="{{ route('login.store') }}"
+		x-data="{submitting: false}"
+		x-on:submit="submitting = true"
+		>
 			@csrf
 			@method('POST')
 			<div class="space-y-1.5">
@@ -16,7 +19,11 @@
 				<x-ui.input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required />
 			</div>
 
-			<x-ui.button type="submit" block="true">Log in</x-ui.button>
+			<x-ui.button type="submit" block="true" 
+			x-bind:disabled="submitting">
+				<span x-show="!submitting">Log in</span>
+				<span x-show="submitting">Logging in...</span>
+			</x-ui.button>
 
 			<x-ui.button tag="a" href="{{ route('register') }}" variant="secondary" block="true">
 				Create an account

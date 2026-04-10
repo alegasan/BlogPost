@@ -79,7 +79,7 @@ class PostController extends Controller
         $post->delete();
         Cache::forget('posts.stats.'.$ownerId);
 
-        return back()->with('success', 'Post deleted successfully!');
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
     }
 }
     
