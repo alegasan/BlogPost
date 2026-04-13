@@ -7,7 +7,7 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center justify-center rounded-full border font-medium tracking-[0.01em] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffdf7] disabled:cursor-not-allowed disabled:opacity-60';
+    $baseClasses = ($block ? 'flex' : 'inline-flex') . ' items-center justify-center rounded-full border font-medium tracking-[0.01em] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffdf7] disabled:cursor-not-allowed disabled:opacity-60';
 
     $sizeClasses = [
         'sm' => 'px-3.5 py-1.5 text-xs',

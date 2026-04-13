@@ -37,6 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy')
         ->middleware('can:delete,post');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+        ->name('posts.edit')
+        ->middleware('can:update,post');
+    Route::put('/posts/{post}', [PostController::class, 'update'])
+        ->name('posts.update')
+        ->middleware('can:update,post');
 
     // My Posts
     Route::get('/my-posts', [MyPostController::class, 'index'])
