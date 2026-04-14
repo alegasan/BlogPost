@@ -9,24 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('pages.auth.Login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(LoginRequest $request)
     {
         $credentials = $request->validated();
 
         if (! Auth::attempt($credentials)) {
             return redirect()->route('login')
-                ->withErrors(['email' => 'Invalid credentials. Please try again.']);
+                ->withErrors(['email' => 'Invalid credentials. Please try again.'])
+                ->withInput($request->only('email'));
         }
 
         $request->session()->regenerate();
@@ -35,33 +30,6 @@ class LoginController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Request $request)
     {
         Auth::logout();
