@@ -14,8 +14,7 @@ class MyPostController extends Controller
         $MyPosts = auth()
             ->user()
             ->posts()
-            ->status('published')
-            ->latest()
+            ->orderBy('updated_at', 'desc')
             ->paginate(10);
 
         return view('pages.user.myPost.Index', compact('MyPosts'));

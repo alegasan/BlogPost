@@ -6,8 +6,7 @@
             <h2 class="text-2xl sm:text-3xl text-[#12211b] [font-family:'DM_Serif_Display',serif]">Create a new post</h2>
             <p class="mt-1 text-sm text-[#5f6f68]">Draft quickly, publish when it is ready.</p>
         </div>
-        <span class="inline-flex rounded-full border border-[#d7d1c6] bg-white px-3 py-1 text-xs text-[#5f6f68]">Drafts:
-            {{ $stats['draft'] ?? 0 }}</span>
+        <span class="inline-flex rounded-full border border-[#d7d1c6] bg-white px-3 py-1 text-xs text-[#5f6f68]">Drafts: {{ $stats['draft'] ?? 0 }}</span>
     </div>
 
     <form class="mt-6 grid gap-4 md:grid-cols-2" 

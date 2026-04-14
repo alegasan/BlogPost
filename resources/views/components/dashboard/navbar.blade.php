@@ -54,9 +54,6 @@
                     @click="currentPath = '/settings'">
                     Settings
                 </a>
-                <div class="ml-auto flex items-center gap-2">
-
-                </div>
             </div>
         </nav>
     </header>
