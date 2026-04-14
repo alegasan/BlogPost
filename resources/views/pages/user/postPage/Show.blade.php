@@ -1,10 +1,10 @@
 <x-layouts.app title="{{ $post->title }} · {{ config('app.name', 'Blog Post') }}">
-    <div class="mx-auto max-w-4xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
         <div class="mb-8">
             <x-dashboard.navbar />
         </div>
 
-        <article class="rounded-3xl border border-[#d7d1c6] bg-white p-6 sm:p-8">
+        <article class="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 rounded-3xl border border-[#d7d1c6] bg-[#fffdf7] p-4 sm:p-6">
             <div class="mb-4 flex flex-wrap items-center gap-3 text-xs text-[#5f6f68]">
                 <span
                     class="inline-flex items-center rounded-full border border-[#d7d1c6] bg-[#f7f2ea] px-3 py-1 uppercase tracking-[0.18em]">
@@ -12,11 +12,11 @@
                 </span>
                 <span>{{ $post->formatted_date }}</span>
                 <div class="ml-auto flex items-center gap-2">
-                    
+                    @can('update', $post)
                     <a href="{{ route('posts.edit', $post) }}" class="font-medium text-[#1D9E75] border border-[#1D9E75] rounded-md hover:bg-[#1D9E75] hover:text-white px-4 py-2 transition-colors duration-200">
                         Edit
                     </a>
-
+                    @endcan
 
                     @can('delete', $post)
                         <form action="{{ route('posts.destroy', $post) }}" method="POST"

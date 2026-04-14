@@ -1,11 +1,11 @@
 <x-layouts.app title="Edit Post · {{ config('app.name', 'Blog Post') }}">
-     <div class="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+     <div class="mx-auto max-w-6xl px-4  pt-6 sm:px-6 lg:px-8">
         <div class="mb-8">
             <x-dashboard.navbar />
         </div>
     </div>
 
-    <div class="mx-auto max-w-4xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
         <section class="rounded-3xl border border-[#d7d1c6] bg-[#fffdf7] p-4 sm:p-6">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
