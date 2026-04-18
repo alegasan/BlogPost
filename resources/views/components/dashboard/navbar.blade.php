@@ -46,14 +46,14 @@
                     @click="currentPath = '/my-posts'">
                     My Posts
                 </a>
-                <a href="{{ url('/settings') }}"
+                {{-- <a href="{{ url('/settings') }}"
                     :class="currentPath === '/settings'
                         ?
                         'rounded-full border border-transparent bg-[#1D9E75]/10 px-4 py-2 font-medium text-[#1D9E75]' :
                         'rounded-full border border-transparent px-4 py-2 text-[#5f6f68] transition hover:text-[#1f2b26]'"
                     @click="currentPath = '/settings'">
                     Settings
-                </a>
+                </a> --}}
             </div>
         </nav>
     </header>
